@@ -2,10 +2,12 @@ package abdallahcom.newsapp.utilities;
 
 import android.graphics.Bitmap;
 
+import java.io.Serializable;
+
 /**
  * Created by Bashar on 7/10/2016.
  */
-public class NewsArticle {
+public class NewsArticle implements Serializable {
     private String title;
     private String description;
     private String url;

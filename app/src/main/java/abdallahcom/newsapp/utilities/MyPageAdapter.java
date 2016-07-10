@@ -20,16 +20,8 @@ public class MyPageAdapter extends FragmentPagerAdapter {
 
     @Override
     public android.support.v4.app.Fragment getItem(int pos) {
-        switch (pos) {
-            case 0:
-                return FragmentViewPager.newInstance("gfsfsdfesdfsdfasdasfsdfsdaasd", R.drawable.rock);
-            case 1:
-                return FragmentViewPager.newInstance("fgsdfsdfsdff", R.drawable.paper);
-            case 2:
-                return FragmentViewPager.newInstance("tsfsdret", R.drawable.scissors);
-            default:
+
                 return FragmentViewPager.newInstance("sdfsdf", R.drawable.rock);
-        }
     }
 
     @Override
