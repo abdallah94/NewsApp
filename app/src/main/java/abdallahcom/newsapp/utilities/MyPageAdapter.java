@@ -22,11 +22,11 @@ public class MyPageAdapter extends FragmentPagerAdapter {
     public android.support.v4.app.Fragment getItem(int pos) {
         switch (pos) {
             case 0:
-                return FragmentViewPager.newInstance("gf", R.drawable.rock);
+                return FragmentViewPager.newInstance("gfsfsdfesdfsdfasdasfsdfsdaasd", R.drawable.rock);
             case 1:
-                return FragmentViewPager.newInstance("fgf", R.drawable.paper);
+                return FragmentViewPager.newInstance("fgsdfsdfsdff", R.drawable.paper);
             case 2:
-                return FragmentViewPager.newInstance("tret", R.drawable.scissors);
+                return FragmentViewPager.newInstance("tsfsdret", R.drawable.scissors);
             default:
                 return FragmentViewPager.newInstance("sdfsdf", R.drawable.rock);
         }
