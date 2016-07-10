@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import abdallahcom.newsapp.ApplicationClass;
 import abdallahcom.newsapp.R;
 import abdallahcom.newsapp.fragments.FragmentViewPager;
 
@@ -21,7 +22,7 @@ public class MyPageAdapter extends FragmentPagerAdapter {
     @Override
     public android.support.v4.app.Fragment getItem(int pos) {
 
-                return FragmentViewPager.newInstance("sdfsdf", R.drawable.rock);
+                return FragmentViewPager.newInstance(ApplicationClass.newsList.get(pos));
     }
 
     @Override

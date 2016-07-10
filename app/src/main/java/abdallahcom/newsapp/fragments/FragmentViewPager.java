@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import abdallahcom.newsapp.ApplicationClass;
+import abdallahcom.newsapp.Constants;
 import abdallahcom.newsapp.R;
 import abdallahcom.newsapp.utilities.NewsArticle;
 
@@ -17,7 +17,7 @@ import abdallahcom.newsapp.utilities.NewsArticle;
 public class FragmentViewPager extends android.support.v4.app.Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        NewsArticle article=(NewsArticle)getArguments().getSerializable(ApplicationClass.ARTICLE_KEY);
+        NewsArticle article = (NewsArticle) getArguments().getSerializable(Constants.ARTICLE_KEY);
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         ImageView imageView = (ImageView) view.findViewById(R.id.image);
         TextView titleTextView = (TextView) view.findViewById(R.id.title);
@@ -27,7 +27,6 @@ public class FragmentViewPager extends android.support.v4.app.Fragment {
         titleTextView.setText(article.getTitle());
         descriptionTextView.setText(article.getDescription());
         dateTextView.setText(article.getPubDate());
-        //imageView.setBackgroundResource(getArguments().getInt("img"));
         return view;
     }
 
@@ -35,7 +34,7 @@ public class FragmentViewPager extends android.support.v4.app.Fragment {
     public static FragmentViewPager newInstance(NewsArticle article) {
         FragmentViewPager f = new FragmentViewPager();
         Bundle bundle = new Bundle();
-        bundle.putSerializable(ApplicationClass.ARTICLE_KEY, article);
+        bundle.putSerializable(Constants.ARTICLE_KEY, article);
         f.setArguments(bundle);
         return f;
     }
