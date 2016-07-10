@@ -15,11 +15,13 @@ import abdallahcom.newsapp.R;
 public class FragmentViewPager extends android.support.v4.app.Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_main, container, false);
-        TextView tv = (TextView) v.findViewById(R.id.title);
-        tv.setText(getArguments().getString("text"));
+        View view = inflater.inflate(R.layout.fragment_main, container, false);
         ImageView imageView = (ImageView) v.findViewById(R.id.image);
-        imageView.setBackgroundResource(getArguments().getInt("img"));
+        //tv.setText(getArguments().getString("text"));
+        TextView titleTextView = (TextView) v.findViewById(R.id.title);
+        TextView descriptionTextView = (TextView) v.findViewById(R.id.description);
+        TextView dateTextView = (TextView) v.findViewById(R.id.pubDate);
+        //imageView.setBackgroundResource(getArguments().getInt("img"));
         return v;
     }
 
