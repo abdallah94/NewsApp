@@ -42,7 +42,7 @@ public class NewsServices {
         }
     }
 
-    public List parse(String link) throws XmlPullParserException, IOException {
+    public static List parse(String link) throws XmlPullParserException, IOException {
         InputStream in;
         URL url = new URL(link);
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
