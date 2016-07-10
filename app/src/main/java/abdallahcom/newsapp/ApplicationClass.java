@@ -11,5 +11,5 @@ import abdallahcom.newsapp.utilities.NewsArticle;
  */
 public class ApplicationClass extends Application {
     public final static String ARTICLE_KEY = "article";
-    public static ArrayList<NewsArticle>
+    public static ArrayList<NewsArticle> newsList;
 }
