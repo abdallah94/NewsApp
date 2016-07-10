@@ -8,6 +8,7 @@ import android.util.Xml;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -15,13 +16,13 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import abdallahcom.newsapp.Constants;
 import abdallahcom.newsapp.utilities.NewsArticle;
 
 /**
  * Created by Bashar on 7/10/2016.
  */
 public class NewsServices {
-    private static final String ns = null;
 
     public static Bitmap getBitmapFromURL(String src) {
         try {
@@ -41,7 +42,25 @@ public class NewsServices {
         }
     }
 
-    public List parse(InputStream in) throws XmlPullParserException, IOException {
+    public List parse(String link) throws XmlPullParserException, IOException {
+        InputStream in;
+        URL url = new URL(link);
+        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+        String xmlData;
+        try {
+            in = new BufferedInputStream(urlConnection.getInputStream());
+            byte buffer[] = new byte[4096];
+
+            int count;
+            xmlData = "";
+            while ((count = in.read(buffer)) != -1) {
+                xmlData += new String(buffer, 0, count);
+            }
+        } finally {
+            urlConnection.disconnect();
+        }
+        Log.d(Constants.TAG, " Data: " + xmlData);
+
         try {
             XmlPullParser parser = Xml.newPullParser();
             parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
@@ -56,7 +75,7 @@ public class NewsServices {
     private List readFeed(XmlPullParser parser) throws XmlPullParserException, IOException {
         List entries = new ArrayList();
 
-        parser.require(XmlPullParser.START_TAG, ns, "feed");
+        parser.require(XmlPullParser.START_TAG, Constants.ns, "feed");
         while (parser.next() != XmlPullParser.END_TAG) {
             if (parser.getEventType() != XmlPullParser.START_TAG) {
                 continue;
@@ -77,7 +96,7 @@ public class NewsServices {
     }
 
     private NewsArticle readEntry(XmlPullParser parser) throws XmlPullParserException, IOException {
-        parser.require(XmlPullParser.START_TAG, ns, "item");
+        parser.require(XmlPullParser.START_TAG, Constants.ns, "item");
         String title = null;
         String description = null;
         String link = null;
@@ -107,41 +126,41 @@ public class NewsServices {
 
     private Bitmap readImage(XmlPullParser parser) throws IOException, XmlPullParserException {
         String url = "";
-        parser.require(XmlPullParser.START_TAG, ns, "media:thumbnail");
+        parser.require(XmlPullParser.START_TAG, url, "media:thumbnail");
         url = parser.getAttributeValue(null, "url");
-        parser.require(XmlPullParser.END_TAG, ns, "media:thumbnail");
+        parser.require(XmlPullParser.END_TAG, url, "media:thumbnail");
         return getBitmapFromURL(url);
     }
 
     // Processes title tags in the feed.
     private String readTitle(XmlPullParser parser) throws IOException, XmlPullParserException {
-        parser.require(XmlPullParser.START_TAG, ns, "title");
+        parser.require(XmlPullParser.START_TAG, Constants.ns, "title");
         String title = readText(parser);
-        parser.require(XmlPullParser.END_TAG, ns, "title");
+        parser.require(XmlPullParser.END_TAG, Constants.ns, "title");
         return title;
     }
 
     // Processes summary tags in the feed.
     private String readSummary(XmlPullParser parser) throws IOException, XmlPullParserException {
-        parser.require(XmlPullParser.START_TAG, ns, "description");
+        parser.require(XmlPullParser.START_TAG, Constants.ns, "description");
         String description = readText(parser);
-        parser.require(XmlPullParser.END_TAG, ns, "description");
+        parser.require(XmlPullParser.END_TAG, Constants.ns, "description");
         return description;
     }
 
     // Processes link tags in the feed.
     private String readLink(XmlPullParser parser) throws IOException, XmlPullParserException {
-        parser.require(XmlPullParser.START_TAG, ns, "link");
+        parser.require(XmlPullParser.START_TAG, Constants.ns, "link");
         String link = readText(parser);
-        parser.require(XmlPullParser.END_TAG, ns, "link");
+        parser.require(XmlPullParser.END_TAG, Constants.ns, "link");
         return link;
     }
 
     // Processes pubDate tags in the feed.
     private String readPubDate(XmlPullParser parser) throws IOException, XmlPullParserException {
-        parser.require(XmlPullParser.START_TAG, ns, "pubDate");
+        parser.require(XmlPullParser.START_TAG, Constants.ns, "pubDate");
         String pubDate = readText(parser);
-        parser.require(XmlPullParser.END_TAG, ns, "pubDate");
+        parser.require(XmlPullParser.END_TAG, Constants.ns, "pubDate");
         return pubDate;
     }
 
